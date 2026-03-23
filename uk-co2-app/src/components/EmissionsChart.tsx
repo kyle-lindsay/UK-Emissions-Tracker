@@ -27,7 +27,7 @@ function EmissionsChart({ data }: EmissionsChartProps) {
     const maxValue = Math.max(...values);
 
     console.log({ minYear, maxYear, minValue, maxValue });
-
+    
     return (
         <svg width={width} height={height}>
         {/* background */}
