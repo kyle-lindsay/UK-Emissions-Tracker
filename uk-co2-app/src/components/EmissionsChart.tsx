@@ -26,7 +26,20 @@ function EmissionsChart({ data }: EmissionsChartProps) {
     const minValue = Math.min(...values);
     const maxValue = Math.max(...values);
 
-    console.log({ minYear, maxYear, minValue, maxValue });
+    const xScale = (year: number) => {
+        return margin.left + ((year - minYear) / (maxYear - minYear)) * innerWidth;
+    };
+
+    const yScale = (value: number) => {
+        return margin.top + innerHeight - ((value - minValue) / (maxValue - minValue)) * innerHeight;
+    };
+
+    const chartPoints = data.map((point) => ({
+        x: xScale(point.year),
+        y: yScale(point.value),
+    }));
+
+console.log(chartPoints);
     
     return (
         <svg width={width} height={height}>
