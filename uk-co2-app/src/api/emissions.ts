@@ -37,5 +37,6 @@ export async function loadEmissions(): Promise<EmissionsPoint[]> {
         }
     });
 
+    
     return result;
 }
