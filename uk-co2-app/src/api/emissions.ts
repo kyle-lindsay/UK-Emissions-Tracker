@@ -42,5 +42,5 @@ export async function loadEmissions(): Promise<EmissionsPoint[]> {
 
     console.log("Final result:", result);
 
-    return [];
+    return result;
 }
