@@ -9,7 +9,6 @@ export async function loadEmissions(): Promise<EmissionsPoint[]> {
     const sheetName = "1.1";
     const sheet = workbook.Sheets[sheetName];
 
-
     const data: (string | number | null)[][] = XLSX.utils.sheet_to_json(sheet, {
         header: 1,
         defval: null,
@@ -26,10 +25,8 @@ export async function loadEmissions(): Promise<EmissionsPoint[]> {
     );
 
     const totalRow = data[totalRowIndex];
-    console.log("Total row:", totalRow);
 
     const result: EmissionsPoint[] = [];
-
     headerRow.forEach((cell, colIndex) => {
         if (colIndex === 0) return;
         const year = Number(cell);
@@ -39,8 +36,6 @@ export async function loadEmissions(): Promise<EmissionsPoint[]> {
             result.push({ year, value });
         }
     });
-
-    console.log("Final result:", result);
 
     return result;
 }

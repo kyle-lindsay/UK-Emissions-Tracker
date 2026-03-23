@@ -1,11 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { loadEmissions } from "./api/emissions";
+import type { EmissionsPoint } from "./types";
 
 function App() {
+  const [emissions, setEmissions] = useState<EmissionsPoint[]>([]);
+
   useEffect(() => {
     loadEmissions()
       .then((data) => {
-        console.log("Emissions data:", data);
+        setEmissions(data);
       })
       .catch((err) => {
         console.error("Error loading emissions:", err);
