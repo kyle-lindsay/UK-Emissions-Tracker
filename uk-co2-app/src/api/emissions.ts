@@ -28,18 +28,19 @@ export async function loadEmissions(): Promise<EmissionsPoint[]> {
     const totalRow = data[totalRowIndex];
     console.log("Total row:", totalRow);
 
-    const firstYear = headerRow[1];
-    const firstValue = totalRow[1];
-
-  const firstPoint: EmissionsPoint = {
-        year: Number(firstYear),
-        value: Number(firstValue),
-    };
-
-    console.log("First point:", firstPoint);
-
     const result: EmissionsPoint[] = [];
-    console.log("Empty result:", result);
+
+    headerRow.forEach((cell, colIndex) => {
+        if (colIndex === 0) return;
+        const year = Number(cell);
+        const value = Number(totalRow[colIndex]);
+
+        if (!isNaN(year) && !isNaN(value)) {
+            result.push({ year, value });
+        }
+    });
+
+    console.log("Final result:", result);
 
     return [];
 }
