@@ -8,7 +8,7 @@ export async function loadEmissions(): Promise<EmissionsPoint[]> {
 
     const sheetName = "1.1";
     const sheet = workbook.Sheets[sheetName];
-    console.log(workbook.SheetNames);
+
 
     const data: (string | number | null)[][] = XLSX.utils.sheet_to_json(sheet, {
         header: 1,
@@ -19,9 +19,27 @@ export async function loadEmissions(): Promise<EmissionsPoint[]> {
         row.includes("1990")
     );
 
-    console.log("Header row index:", headerRowIndex);
+    const headerRow = data[headerRowIndex];
 
-    console.log(data.slice(0, 15));
+    const totalRowIndex = data.findIndex(
+        (row) => row[0] === "Total greenhouse gas emissions"
+    );
+
+    const totalRow = data[totalRowIndex];
+    console.log("Total row:", totalRow);
+
+    const firstYear = headerRow[1];
+    const firstValue = totalRow[1];
+
+  const firstPoint: EmissionsPoint = {
+        year: Number(firstYear),
+        value: Number(firstValue),
+    };
+
+    console.log("First point:", firstPoint);
+
+    const result: EmissionsPoint[] = [];
+    console.log("Empty result:", result);
 
     return [];
 }
