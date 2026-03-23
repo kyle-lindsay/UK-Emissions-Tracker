@@ -63,6 +63,96 @@ function EmissionsChart({ data }: EmissionsChartProps) {
             height={innerHeight}
             fill="#f9f9f9"
         />
+
+        <text
+            x={width / 2}
+            y={20}
+            textAnchor="middle"
+            fontSize="16"
+            fontWeight="bold"
+            >
+            UK Greenhouse Gas Emissions
+        </text>
+
+        <text
+            x={15}
+            y={margin.top + innerHeight / 2}
+            textAnchor="middle"
+            fontSize="12"
+            transform={`rotate(-90, 15, ${margin.top + innerHeight / 2})`}
+            >
+            MtCO2e
+        </text>
+
+        <text
+            x={width / 2}
+            y={height +margin.top - 30}
+            textAnchor="middle"
+            fontSize="12"
+            >
+            Year
+        </text>
+
+        {/* X axis */}
+        <line
+        x1={margin.left}
+        y1={margin.top + innerHeight}
+        x2={margin.left + innerWidth}
+        y2={margin.top + innerHeight}
+        stroke="black"
+        />
+
+        {/* Y axis */}
+        <line
+        x1={margin.left}
+        y1={margin.top}
+        x2={margin.left}
+        y2={margin.top + innerHeight}
+        stroke="black"
+        />
+
+        <text
+            x={margin.left}
+            y={margin.top + innerHeight + 20}
+            textAnchor="middle"
+            fontSize="12"
+            >
+            {minYear}
+        </text>
+
+        <text
+            x={margin.left + innerWidth}
+            y={margin.top + innerHeight + 20}
+            textAnchor="middle"
+            fontSize="12"
+            >
+            {maxYear}
+        </text>
+
+        <text
+            x={margin.left - 10}
+            y={margin.top + innerHeight}
+            textAnchor="end"
+            fontSize="12"
+            >
+            {Math.round(minValue)}
+        </text>
+
+        <text
+            x={margin.left - 10}
+            y={margin.top}
+            textAnchor="end"
+            fontSize="12"
+            >
+            {Math.round(maxValue)}
+            </text>
+
+        <path
+            d={linePath}
+            fill="none"
+            stroke="steelblue"
+            strokeWidth={2}
+        />
         </svg>
     );
 }

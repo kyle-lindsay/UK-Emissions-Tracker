@@ -16,28 +16,8 @@ function App() {
       });
   }, []);
 
-  const firstPoint = emissions[0];
-  const lastPoint = emissions[emissions.length - 1];
-
   return (
     <main>
-      <table>
-        <thead>
-          <tr>
-            <th>Year</th>
-            <th>Emissions (MtCO2e)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {emissions.map((point) => (
-            <tr key={point.year}>
-              <td>{point.year}</td>
-              <td>{point.value}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
       <EmissionsChart data={emissions} />
     </main>
   );
