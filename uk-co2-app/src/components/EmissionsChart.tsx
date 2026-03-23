@@ -39,7 +39,16 @@ function EmissionsChart({ data }: EmissionsChartProps) {
         y: yScale(point.value),
     }));
 
-console.log(chartPoints);
+    const linePath = chartPoints
+    .map((point, index) => {
+        const command = index === 0 ? "M" : "L";
+        return `${command} ${point.x} ${point.y}`;
+    })
+    .join(" ");
+
+    console.log(linePath);
+
+    console.log(chartPoints);
     
     return (
         <svg width={width} height={height}>
