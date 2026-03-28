@@ -5,11 +5,12 @@ type EmissionsChartProps = {
 };
 
 function EmissionsChart({ data }: EmissionsChartProps) {
-    const width = 800;
-    const height = 400;
+    const screenWidth = document.body.clientWidth
+    const width = screenWidth * 2/3;
+    const height = screenWidth * 1/3;
 
     const margin = {
-        top: 20,
+        top: 30,
         right: 20,
         bottom: 40,
         left: 60,
@@ -53,7 +54,7 @@ function EmissionsChart({ data }: EmissionsChartProps) {
     return (
         <svg width={width} height={height}>
         {/* background */}
-        <rect x="0" y="0" width={width} height={height} fill="white" />
+        <rect x="0" y="0" width={width} height={height} id="graphContainer" />
 
         {/* chart area */}
         <rect
@@ -61,7 +62,7 @@ function EmissionsChart({ data }: EmissionsChartProps) {
             y={margin.top}
             width={innerWidth}
             height={innerHeight}
-            fill="#f9f9f9"
+            id="graphBg"
         />
 
         <text
@@ -86,7 +87,7 @@ function EmissionsChart({ data }: EmissionsChartProps) {
 
         <text
             x={width / 2}
-            y={height +margin.top - 30}
+            y={height +margin.top - 40}
             textAnchor="middle"
             fontSize="12"
             >

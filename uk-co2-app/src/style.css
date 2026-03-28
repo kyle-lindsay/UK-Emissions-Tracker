@@ -1,13 +1,29 @@
 :root {
+  --col-bg: #f7f7f7;
+  --col-text: #111;
+  --col-bg-element: #c9c9c9;
+
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 }
 
+*, ::after, ::before {
+  box-sizing: border-box;
+}
+
+@media(prefers-color-scheme: dark) {
+  :root {
+    --col-bg: #2f2f2f;
+    --col-bg-element: #3f3f3f;
+    --col-text: #f7f7f7;
+  }
+}
+
 body {
   margin: 0;
-  background: #f7f7f7;
-  color: #111;
+  background: var(--col-bg);
+  color: var(--col-text);
 }
 
 #root {
@@ -18,4 +34,16 @@ body {
 
 h1 {
   margin-top: 0;
+}
+
+text {
+  fill: var(--col-text);
+}
+
+#graphBg {
+  fill: var(--col-bg);
+}
+
+#graphContainer {
+  fill: var(--col-bg-element);
 }
