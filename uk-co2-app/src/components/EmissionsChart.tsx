@@ -1,4 +1,7 @@
 import type { EmissionsPoint } from "../types";
+import {Line} from "../types";
+import "../lib/lineOfBestFit.ts";
+import { calculateLineOfBestFit } from "../lib/lineOfBestFit.ts";
 
 type EmissionsChartProps = {
   data: EmissionsPoint[];
@@ -25,7 +28,7 @@ function EmissionsChart({ data }: EmissionsChartProps) {
     const minYear = Math.min(...years);
     const maxYear = Math.max(...years);
     const minValue = Math.min(...values);
-    const maxValue = Math.max(...values);
+    const maxValue = Math.max(...values) + 50;
 
     const xScale = (year: number) => {
         return margin.left + ((year - minYear) / (maxYear - minYear)) * innerWidth;
@@ -47,9 +50,7 @@ function EmissionsChart({ data }: EmissionsChartProps) {
     })
     .join(" ");
 
-    console.log(linePath);
-
-    console.log(chartPoints);
+    calculateLineOfBestFit(data);
     
     return (
         <svg width={width} height={height}>
