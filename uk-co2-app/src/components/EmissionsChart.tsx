@@ -2,15 +2,28 @@ import type { EmissionsPoint } from "../types";
 import {Line} from "../types";
 import "../lib/lineOfBestFit.ts";
 import { calculateLineOfBestFit } from "../lib/lineOfBestFit.ts";
+import { useState } from "react";
 
 type EmissionsChartProps = {
   data: EmissionsPoint[];
 };
 
+type pointHover = {
+    x: number;
+    y: number;
+    point: EmissionsPoint;
+}
+
 function EmissionsChart({ data }: EmissionsChartProps) {
     const screenWidth = document.body.clientWidth
     const width = screenWidth * 2/3;
     const height = screenWidth * 1/3;
+
+    const [hovered, setHovered] = useState<{
+        point: EmissionsPoint;
+        x: number;
+        y: number;
+    } | null>(null);
 
     const margin = {
         top: 30,
@@ -77,7 +90,7 @@ function EmissionsChart({ data }: EmissionsChartProps) {
             y={margin.top}
             width={innerWidth}
             height={innerHeight}
-            id="graphBg"
+            className="graph-bg"
         />
 
         <text
@@ -176,6 +189,51 @@ function EmissionsChart({ data }: EmissionsChartProps) {
             stroke="steelblue"
             strokeWidth={2}
         />
+
+       {chartPoints.map((p, i) => {
+            const point = data[i];
+
+            return (
+                <circle
+                key={i}
+                cx={p.x}
+                cy={p.y}
+                r={5}
+                fill="steelblue"
+                onMouseOver={() =>
+                    setHovered({
+                    point,
+                    x: p.x,
+                    y: p.y,
+                    })
+                }
+                onMouseOut={() => setHovered(null)}
+                />
+            );
+            })}
+
+            {hovered && (
+                <>
+                    <rect
+                    x={hovered.x - 45}
+                    y={hovered.y - 50}
+                    width={90}
+                    height={32}
+                    stroke="black"
+                    className="graph-bg"
+                    rx={4}
+                    />
+                    <text
+                    x={hovered.x}
+                    y={hovered.y - 30}
+                    textAnchor="middle"
+                    fontSize="12"
+                    >
+                    {hovered.point.year} | {hovered.point.value.toFixed(1)}
+                    </text>
+                </>
+                )}
+
         </svg>
     );
 }

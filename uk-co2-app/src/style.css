@@ -41,7 +41,7 @@ text {
   fill: var(--col-text);
 }
 
-#graphBg {
+.graph-bg {
   fill: var(--col-bg);
 }
 
