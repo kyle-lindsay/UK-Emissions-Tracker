@@ -47,11 +47,25 @@ function EmissionsChart({ data }: EmissionsChartProps) {
     .map((point, index) => {
         const command = index === 0 ? "M" : "L";
         return `${command} ${point.x} ${point.y}`;
-    })
-    .join(" ");
+    }).join(" ");
 
-    calculateLineOfBestFit(data);
+    const lineOfBestFit: Line = calculateLineOfBestFit(data);
+    const bestFitStart: EmissionsPoint = {year: minYear, value: lineOfBestFit.getPoint(0)}
+    const bestFitEnd: EmissionsPoint = {year: maxYear, value: lineOfBestFit.getPoint(maxYear - minYear)}
     
+    const bestFitData = [bestFitStart, bestFitEnd];
+
+    const bestFitPoints = bestFitData.map((point) => ({
+        x: xScale(point.year),
+        y: yScale(point.value),
+    }));
+
+    const bestFitPath = bestFitPoints
+    .map((point, index) => {
+        const command = index === 0 ? "M" : "L";
+        return `${command} ${point.x} ${point.y}`;
+    }).join(" ")
+
     return (
         <svg width={width} height={height}>
         {/* background */}
@@ -148,6 +162,13 @@ function EmissionsChart({ data }: EmissionsChartProps) {
             >
             {Math.round(maxValue)}
             </text>
+
+        <path
+            d={bestFitPath}
+            fill="none"
+            stroke="red"
+            strokeWidth={2}
+        />
 
         <path
             d={linePath}
